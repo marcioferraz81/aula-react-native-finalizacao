@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aulas passo a passo de React Native no Expo Snack: Biscoito da Sorte e navegação Stack.">
+  <title>Aulas React Native | Expo Snack</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{--brand:#d97722;--navy:#202941;--soft:#fff4e9}
+    body{background:#f5f6fa;color:#222b3b}
+    .hero{background:linear-gradient(120deg,#202941,#40547d);color:#fff}
+    .hero .lead{color:#e6eaf2;max-width:780px}
+    .brand-text{color:#ffc58f}
+    .navbar-brand{font-weight:800;letter-spacing:.2px}
+    .nav-pills .nav-link{font-weight:700;color:#34415d}
+    .nav-pills .nav-link.active{background:var(--brand)}
+    .section-card{border:0;border-radius:1rem;box-shadow:0 8px 28px rgba(28,39,62,.07)}
+    .eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--brand)}
+    .lesson-title{font-weight:800;color:var(--navy)}
+    .step-number{width:2.25rem;height:2.25rem;display:inline-grid;place-items:center;border-radius:50%;background:var(--soft);color:#98500f;font-weight:800;flex-shrink:0}
+    .step{display:flex;gap:1rem;padding:1.1rem 0;border-bottom:1px solid #edf0f4}
+    .step:last-child{border-bottom:0}
+    pre{background:#182033;color:#f2f5fb;padding:1rem;border-radius:.75rem;overflow:auto;font-size:.875rem}
+    code{color:#a13f12}
+    pre code{color:inherit}
+    .callout{background:#fff7ef;border-left:4px solid var(--brand);border-radius:.5rem;padding:1rem}
+    .callout-blue{background:#f0f4ff;border-left-color:#4566ad}
+    .activity{border:2px dashed #e4b17e;background:#fffaf5}
+    .activity-blue{border-color:#a9bce9;background:#f8faff}
+    .checklist .form-check{margin:.55rem 0}
+    footer{color:#778096}
+    .btn-brand{background:var(--brand);color:white;border:0;font-weight:700}
+    .btn-brand:hover{background:#b96117;color:white}
+    .tab-pane{padding-top:1.5rem}
+    @media(max-width:576px){.hero{padding-top:3rem!important;padding-bottom:3rem!important}.step{gap:.7rem}}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background:#202941">
+  <div class="container">
+    <a class="navbar-brand" href="#">📱 React Native na prática</a>
+    <span class="navbar-text text-white-50 small">Material de apoio · Expo Snack</span>
+  </div>
+</nav>
+
+<header class="hero py-5">
+  <div class="container py-lg-3">
+    <div class="eyebrow brand-text">Aulas práticas passo a passo</div>
+    <h1 class="display-4 fw-bold mt-2">Construa aplicativos<br class="d-none d-md-block"> com React Native</h1>
+    <p class="lead mt-3 mb-4">Duas aulas guiadas para desenvolver e testar aplicativos diretamente no Expo Snack. Acompanhe os conceitos, implemente cada etapa e conclua as atividades propostas.</p>
+    <a class="btn btn-brand btn-lg" href="https://snack.expo.dev/" target="_blank" rel="noopener">Abrir Expo Snack ↗</a>
+  </div>
+</header>
+
+<main class="container py-4 py-lg-5">
+  <ul class="nav nav-pills nav-fill gap-2 mb-3" id="lessonTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="biscoito-tab" data-bs-toggle="pill" data-bs-target="#biscoito" type="button" role="tab">🥠 Aula 1 · Biscoito da Sorte</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="stack-tab" data-bs-toggle="pill" data-bs-target="#stack" type="button" role="tab">📍 Aula 2 · Consulta de CEP</button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <!-- AULA 1: somente Biscoito da Sorte do primeiro arquivo -->
+    <section class="tab-pane fade show active" id="biscoito" role="tabpanel" aria-labelledby="biscoito-tab">
+      <div class="card section-card p-4 p-lg-5 mb-4">
+        <div class="eyebrow">Aula 1 · Primeiro arquivo</div>
+        <h2 class="lesson-title display-6">🥠 Aplicativo Biscoito da Sorte</h2>
+        <p class="text-secondary">Nesta aula, vamos desenvolver somente a funcionalidade do Biscoito da Sorte presente no primeiro arquivo. As telas de Cálculo e Sobre não fazem parte desta atividade.</p>
+        <div class="row g-3 mt-2">
+          <div class="col-md-4"><div class="bg-light rounded-3 p-3 h-100"><strong>Conceitos</strong><p class="small text-secondary mb-0">Componentes, estado com <code>useState</code>, arrays, funções e eventos.</p></div></div>
+          <div class="col-md-4"><div class="bg-light rounded-3 p-3 h-100"><strong>Interface</strong><p class="small text-secondary mb-0">Imagem/ícone do biscoito, frase da sorte e botão para abrir.</p></div></div>
+          <div class="col-md-4"><div class="bg-light rounded-3 p-3 h-100"><strong>Ambiente</strong><p class="small text-secondary mb-0">Expo Snack, arquivo principal <code>App.js</code>.</p></div></div>
+        </div>
+      </div>
+
+      <div class="card section-card p-4 p-lg-5 mb-4">
+        <h3 class="h4 fw-bold mb-3">Desenvolvimento passo a passo</h3>
+        <div class="step"><span class="step-number">1</span><div><h4 class="h6 fw-bold">Criar o projeto no Snack</h4><p class="mb-0">Acesse <a href="https://snack.expo.dev/" target="_blank" rel="noopener">snack.expo.dev</a> e crie um projeto em branco. O código será escrito no arquivo <code>App.js</code>. Para esta aula não é necessário instalar bibliotecas extras.</p></div></div>
+        <div class="step"><span class="step-number">2</span><div><h4 class="h6 fw-bold">Importar React e os componentes</h4><p>Importe o React, o hook <code>useState</code> e os componentes que serão utilizados na interface.</p><pre><code>import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native';</code></pre></div></div>
+        <div class="step"><span class="step-number">3</span><div><h4 class="h6 fw-bold">Criar o componente e os estados</h4><p>O estado permite atualizar a frase e a imagem quando o usuário toca no botão. Para facilitar o primeiro teste no Snack, use um emoji no lugar da imagem local do material.</p><pre><code>export default function App() {
+  const [textoFrase, setTextoFrase] = useState('Frase aqui');
+  const [aberto, setAberto] = useState(false);
+
+  // restante do código virá aqui
+}</code></pre></div></div>
+        <div class="step"><span class="step-number">4</span><div><h4 class="h6 fw-bold">Montar o array de frases</h4><p>O array armazena as mensagens disponíveis para o sorteio.</p><pre><code>const frases = [
+  'Sorte é estar preparado quando a oportunidade aparece.',
+  'Um passo de cada vez leva longe.',
+  'Acredite no seu potencial!',
+  'O sucesso começa com um pensamento positivo.',
+  'Grandes coisas levam tempo.'
+];</code></pre></div></div>
+        <div class="step"><span class="step-number">5</span><div><h4 class="h6 fw-bold">Criar a função que abre o biscoito</h4><p><code>Math.random()</code> gera um valor aleatório. <code>Math.floor()</code> transforma o resultado em um índice inteiro válido para acessar uma frase do array.</p><pre><code>function quebrarBiscoito() {
+  const num = Math.floor(Math.random() * frases.length);
+  setTextoFrase('"' + frases[num] + '"');
+  setAberto(true);
+}</code></pre></div></div>
+        <div class="step"><span class="step-number">6</span><div><h4 class="h6 fw-bold">Construir a interface</h4><p>Organize os elementos em uma <code>View</code>. O <code>TouchableOpacity</code> cria o botão e o evento <code>onPress</code> chama a função.</p><pre><code>return (
+  &lt;View style={estilos.container}&gt;
+    &lt;Text style={estilos.biscoito}&gt;
+      {aberto ? '🥠' : '🥠'}
+    &lt;/Text&gt;
+
+    &lt;Text style={estilos.textoFrase}&gt;
+      {textoFrase}
+    &lt;/Text&gt;
+
+    &lt;TouchableOpacity
+      style={estilos.botao}
+      onPress={quebrarBiscoito}
+    &gt;
+      &lt;Text style={estilos.btnTexto}&gt;Abrir Biscoito&lt;/Text&gt;
+    &lt;/TouchableOpacity&gt;
+  &lt;/View&gt;
+);</code></pre></div></div>
+        <div class="step"><span class="step-number">7</span><div><h4 class="h6 fw-bold">Aplicar os estilos e testar</h4><p>Use <code>StyleSheet.create()</code> para centralizar os elementos, definir tamanho de fonte, cores, margens e aparência do botão. Teste várias vezes e observe se a frase muda.</p><pre><code>const estilos = StyleSheet.create({
+  container: {
+    flex: 1, alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff', padding: 20
+  },
+  biscoito: { fontSize: 110 },
+  textoFrase: {
+    fontSize: 18, color: '#dd7b22',
+    margin: 30, fontStyle: 'italic',
+    textAlign: 'center'
+  },
+  botao: {
+    width: 200, height: 45,
+    backgroundColor: '#dd7b22',
+    borderRadius: 25, alignItems: 'center',
+    justifyContent: 'center'
+  },
+  btnTexto: { color: '#fff', fontWeight: 'bold', fontSize: 16 }
+});</code></pre></div></div>
+        <div class="callout mt-4"><strong>Atenção:</strong> no arquivo original, as imagens são carregadas com <code>require('../assets/...')</code>. Se você quiser usar essas imagens no Snack, envie os arquivos de imagem para a pasta <code>assets</code> e ajuste os caminhos. O emoji acima é uma alternativa para executar o exercício sem esses arquivos.</div>
+      </div>
+
+      <div class="card section-card activity p-4 p-lg-5">
+        <div class="eyebrow">Atividade 1 · Individual ou dupla</div>
+        <h3 class="h4 fw-bold">Personalize seu Biscoito da Sorte</h3>
+        <p>Partindo do aplicativo construído na aula, faça as alterações abaixo e teste o resultado no Snack.</p>
+        <ol>
+          <li>Acrescente pelo menos <strong>5 novas frases</strong> ao array.</li>
+          <li>Altere as cores da tela e do botão, mantendo boa legibilidade.</li>
+          <li>Crie um segundo botão chamado <strong>“Novo biscoito”</strong> que sorteie outra frase.</li>
+          <li>Inclua um título no topo: <strong>“Meu Biscoito da Sorte”</strong>.</li>
+          <li>Verifique se todas as frases podem aparecer e apresente o aplicativo funcionando.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- AULA 2: consulta de CEP baseada no arquivo enviado -->
+    <section class="tab-pane fade" id="stack" role="tabpanel" aria-labelledby="stack-tab">
+      <div class="card section-card p-4 p-lg-5 mb-4">
+        <div class="eyebrow">Aula 2 · Arquivo novo</div>
+        <h2 class="lesson-title display-6">📍 Aplicativo de consulta de CEP</h2>
+        <p class="text-secondary">Nesta aula, vamos criar um aplicativo que recebe um CEP, consulta a API ViaCEP e apresenta os dados do endereço. O projeto trabalha com estados, validação, função assíncrona, requisição HTTP, tratamento de erros e indicador de carregamento.</p>
+        <div class="row g-3 mt-2">
+          <div class="col-md-4"><div class="bg-light rounded-3 p-3 h-100"><strong>Conceitos</strong><p class="small text-secondary mb-0">useState, TextInput, validação, async/await e fetch.</p></div></div>
+          <div class="col-md-4"><div class="bg-light rounded-3 p-3 h-100"><strong>API utilizada</strong><p class="small text-secondary mb-0">ViaCEP: consulta de endereço por CEP.</p></div></div>
+          <div class="col-md-4"><div class="bg-light rounded-3 p-3 h-100"><strong>Ambiente</strong><p class="small text-secondary mb-0">Expo Snack, arquivo principal <code>App.js</code>.</p></div></div>
+        </div>
+        <a class="btn btn-brand mt-3 align-self-start" href="https://snack.expo.dev/" target="_blank" rel="noopener">Abrir Expo Snack ↗</a>
+      </div>
+
+      <div class="card section-card p-4 p-lg-5 mb-4">
+        <h3 class="h4 fw-bold mb-3">Desenvolvimento passo a passo</h3>
+        <div class="step"><span class="step-number">1</span><div><h4 class="h6 fw-bold">Criar o projeto</h4><p class="mb-0">Acesse <a href="https://snack.expo.dev/" target="_blank" rel="noopener">snack.expo.dev</a> e crie um projeto em branco. O código será desenvolvido no arquivo <code>App.js</code>. O arquivo de referência também apresenta a criação de um projeto Expo local, mas nesta aula vamos executar pelo Snack.</p></div></div>
+        <div class="step"><span class="step-number">2</span><div><h4 class="h6 fw-bold">Importar os componentes</h4><p>Importe <code>useState</code> do React e os componentes do React Native. O <code>ActivityIndicator</code> será exibido enquanto a consulta estiver em andamento.</p><pre><code>import { useState } from 'react';
+import {
+  View, Text, TextInput, Button,
+  StyleSheet, ActivityIndicator
+} from 'react-native';</code></pre></div></div>
+        <div class="step"><span class="step-number">3</span><div><h4 class="h6 fw-bold">Criar os estados</h4><p>Precisamos armazenar o CEP digitado, os dados retornados pela API e a informação de carregamento.</p><pre><code>const [cep, setCep] = useState('');
+const [dados, setDados] = useState(null);
+const [loading, setLoading] = useState(false);</code></pre><p class="small text-secondary mb-0"><code>cep</code> guarda o texto digitado; <code>dados</code> começa como <code>null</code> e receberá o objeto da API; <code>loading</code> controla o indicador de carregamento.</p></div></div>
+        <div class="step"><span class="step-number">4</span><div><h4 class="h6 fw-bold">Criar a função buscarCep()</h4><p>A função verifica se foram digitados oito caracteres. Se estiver correto, ativa o carregamento, limpa o resultado anterior e faz a consulta com <code>fetch</code>.</p><pre><code>async function buscarCep() {
+  if (!cep || cep.length !== 8) {
+    alert('Digite um CEP válido (somente números)');
+    return;
+  }
+
+  setLoading(true);
+  setDados(null);
+
+  try {
+    const resposta = await fetch(
+      `https://viacep.com.br/ws/${cep}/json/`
+    );
+    const json = await resposta.json();
+
+    if (json.erro) {
+      alert('CEP não encontrado!');
+    } else {
+      setDados(json);
+    }
+  } catch (error) {
+    alert('Erro ao consultar o CEP');
+  }
+
+  setLoading(false);
+}</code></pre></div></div>
+        <div class="step"><span class="step-number">5</span><div><h4 class="h6 fw-bold">Entender a consulta à API</h4><p>A URL recebe o CEP digitado e retorna os dados em formato JSON. O comando <code>await</code> aguarda a resposta da internet e <code>resposta.json()</code> converte o conteúdo para um objeto JavaScript.</p><pre><code>https://viacep.com.br/ws/01001000/json/</code></pre><p class="small text-secondary mb-0">Exemplo de CEP para teste: <strong>01001000</strong>.</p></div></div>
+        <div class="step"><span class="step-number">6</span><div><h4 class="h6 fw-bold">Montar o campo de entrada e o botão</h4><p>O <code>TextInput</code> recebe o CEP. A propriedade <code>maxLength</code> limita a digitação a oito caracteres e <code>onChangeText</code> atualiza o estado.</p><pre><code>&lt;TextInput
+  style={styles.input}
+  placeholder="Digite o CEP (somente números)"
+  keyboardType="numeric"
+  maxLength={8}
+  value={cep}
+  onChangeText={setCep}
+/&gt;
+
+&lt;Button title="Buscar CEP" onPress={buscarCep} /&gt;</code></pre></div></div>
+        <div class="step"><span class="step-number">7</span><div><h4 class="h6 fw-bold">Exibir carregamento e resultado</h4><p>Renderize o indicador enquanto <code>loading</code> for verdadeiro. Quando <code>dados</code> possuir conteúdo, mostre as propriedades retornadas pela API.</p><pre><code>{loading && (
+  &lt;ActivityIndicator size="large" style={{ marginTop: 20 }} /&gt;
+)}
+
+{dados && (
+  &lt;View style={styles.result}&gt;
+    &lt;Text&gt;CEP: {dados.cep}&lt;/Text&gt;
+    &lt;Text&gt;Logradouro: {dados.logradouro}&lt;/Text&gt;
+    &lt;Text&gt;Bairro: {dados.bairro}&lt;/Text&gt;
+    &lt;Text&gt;Cidade: {dados.localidade}&lt;/Text&gt;
+    &lt;Text&gt;Estado: {dados.uf}&lt;/Text&gt;
+    &lt;Text&gt;DDD: {dados.ddd}&lt;/Text&gt;
+  &lt;/View&gt;
+)}</code></pre></div></div>
+        <div class="step"><span class="step-number">8</span><div><h4 class="h6 fw-bold">Estilizar e testar</h4><p>Utilize <code>StyleSheet.create()</code> para definir o espaçamento, o campo de entrada e o cartão de resultado. Teste um CEP válido, um CEP inexistente e um valor com menos de oito dígitos.</p><pre><code>const styles = StyleSheet.create({
+  container: {
+    flex: 1, padding: 20, paddingTop: 60,
+    backgroundColor: '#fff'
+  },
+  titulo: {
+    fontSize: 22, fontWeight: 'bold',
+    marginBottom: 20, textAlign: 'center'
+  },
+  input: {
+    borderWidth: 1, padding: 12,
+    borderRadius: 5, marginBottom: 15
+  },
+  result: {
+    marginTop: 25, padding: 20,
+    backgroundColor: '#f3f3f3', borderRadius: 8
+  },
+  label: { fontSize: 16, marginBottom: 5 }
+});</code></pre></div></div>
+        <div class="callout callout-blue mt-4"><strong>Importante:</strong> a API ViaCEP é acessada pela internet. Se a consulta falhar, verifique a conexão e confira se o CEP foi digitado corretamente. O código-base do arquivo valida a quantidade de caracteres e trata CEP não encontrado e erro na requisição.</div>
+      </div>
+
+      <div class="card section-card activity activity-blue p-4 p-lg-5">
+        <div class="eyebrow">Atividade 2 · Individual ou dupla</div>
+        <h3 class="h4 fw-bold">Personalize o aplicativo de consulta de CEP</h3>
+        <p>Com base no aplicativo desenvolvido na aula, implemente as melhorias abaixo mantendo a consulta à API ViaCEP funcionando.</p>
+        <ol>
+          <li>Adicione uma máscara visual ao CEP, exibindo-o no formato <strong>00000-000</strong> (a consulta à API deve continuar enviando somente números).</li>
+          <li>Inclua um botão <strong>Limpar</strong> que apague o CEP digitado e os dados exibidos.</li>
+          <li>Mostre uma mensagem na própria tela quando o CEP não for encontrado, em vez de utilizar apenas <code>alert()</code>.</li>
+          <li>Organize os dados retornados em um cartão visual (um VIEW formatado), destacando cidade e estado.</li>
+          <li>Teste com um CEP válido, um CEP inexistente e um CEP incompleto.</li>
+        </ol>
+      </div>
+    </section>
+  </div>
+
+  <div class="card section-card p-4 mt-4">
+    <h3 class="h5 fw-bold">Como entregar o projeto?</h3>
+    <ol class="mb-0">
+      <li>Acrescente no projeto anterior (com navegação)</li>
+      <li>Apresentar ao professor entre 24 e 26/11</li>
+    </ol>
+  </div>
+</main>
+<footer class="container pb-4">Material didático de apoio · React Native + Expo Snack · Site desenvolvido com Bootstrap 5</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
